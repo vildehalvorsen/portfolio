@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import DisplayBox from '../boxes/DisplayBox';
+import DisplayBox from "../boxes/DisplayBox";
+import { StyledSlider } from "../styledComponents/Slider";
+import projects from "../../constants/api";
 
 export default function DisplaySlider() {
   const [rotation, setRotation] = useState(0);
+  const [totalRotation, setTotalRotation] = useState(0);
   const rotationSpeed = 0.1;
 
   useEffect(() => {
@@ -13,7 +16,8 @@ export default function DisplaySlider() {
 
       animationFrame = requestAnimationFrame(() => {
         const delta = getDeltaFromEvent(event) * rotationSpeed;
-        setRotation((prevRotation) => prevRotation + delta);
+        setTotalRotation((prevTotalRotation) => prevTotalRotation + delta);
+        setRotation((prevRotation) => (prevRotation + delta) % 360);
       });
     };
 
@@ -34,29 +38,37 @@ export default function DisplaySlider() {
       const rightArrowKey = 39;
 
       if (keyCode === leftArrowKey) {
-        setRotation((prevRotation) => prevRotation - 10);
+        setTotalRotation((prevTotalRotation) => prevTotalRotation - 10);
+        setRotation((prevRotation) => (prevRotation - 10) % 360);
       } else if (keyCode === rightArrowKey) {
-        setRotation((prevRotation) => prevRotation + 10);
+        setTotalRotation((prevTotalRotation) => prevTotalRotation + 10);
+        setRotation((prevRotation) => (prevRotation + 10) % 360);
       }
     };
 
-    window.addEventListener('wheel', handleInteraction);
-    window.addEventListener('touchmove', handleInteraction);
-    window.addEventListener('keydown', handleKeyboard);
+    window.addEventListener("wheel", handleInteraction);
+    window.addEventListener("touchmove", handleInteraction);
+    window.addEventListener("keydown", handleKeyboard);
 
     return () => {
-      window.removeEventListener('wheel', handleInteraction);
-      window.removeEventListener('touchmove', handleInteraction);
-      window.removeEventListener('keydown', handleKeyboard);
+      window.removeEventListener("wheel", handleInteraction);
+      window.removeEventListener("touchmove", handleInteraction);
+      window.removeEventListener("keydown", handleKeyboard);
       cancelAnimationFrame(animationFrame);
     };
   }, []);
   
   return (
-    <div className="slider" style={{ transform: `rotateY(${rotation}deg)` }} >
-      <DisplayBox i={0}/>
-      <DisplayBox i={1} />
-      <DisplayBox i={2} />  
-    </div>
-  )
+    <StyledSlider style={{ transform: `rotateY(${rotation}deg)` }}>
+      {projects.map((project, i) => {
+        return (
+          <DisplayBox
+            key={project.id}
+            i={i}
+            project={project}
+          />
+        );
+      })}
+    </StyledSlider>
+  );
 }

@@ -4,7 +4,9 @@ import DisplaySlider from "../../slider/DisplaySlider";
 export default function HomePage() {
   return (
     <>
-    <DisplaySlider />
+      <div className="slider--container">
+        <DisplaySlider />
+      </div>
     </>
   );
 }
