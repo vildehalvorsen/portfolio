@@ -6,10 +6,14 @@ import navigation from "../../constants/navigation";
 export default function DisplaySlider() {
   const [rotation, setRotation] = useState(0);
   const rotationSpeed = 0.1;
+  const swipeThreshold = 10; // Minimum swipe distance to consider it as a swipe
+  const swipeMultiplier = 0.2; // Multiplier for swipe scrolling intensity
 
   useEffect(() => {
     let animationFrame;
     let startTouchY = 0;
+    let previousTouchY = 0;
+    let touchVelocity = 0;
 
     const handleInteraction = (event) => {
       cancelAnimationFrame(animationFrame);
@@ -33,17 +37,35 @@ export default function DisplaySlider() {
 
     const handleTouchStart = (event) => {
       startTouchY = event.touches[0].clientY;
+      previousTouchY = startTouchY;
+      touchVelocity = 0;
     };
 
     const handleTouchMove = (event) => {
       event.preventDefault();
-      const deltaY = startTouchY - event.touches[0].clientY;
+      const currentTouchY = event.touches[0].clientY;
+      const deltaY = currentTouchY - previousTouchY;
       const delta = deltaY * rotationSpeed;
       setRotation((prevRotation) => (prevRotation + delta) % 360);
+
+      const touchTime = event.timeStamp;
+      const elapsedTime = touchTime - event.touches[0].timeStamp;
+      touchVelocity = Math.abs(deltaY / elapsedTime) * 1000; // Average velocity in pixels per second
+
+      previousTouchY = currentTouchY;
     };
 
     const handleTouchEnd = () => {
       startTouchY = 0;
+      previousTouchY = 0;
+
+      // Apply additional scroll based on touch velocity when swiping
+      if (touchVelocity > swipeThreshold) {
+        const additionalScroll = touchVelocity * swipeMultiplier;
+        setRotation((prevRotation) => (prevRotation + additionalScroll) % 360);
+      }
+
+      touchVelocity = 0;
     };
 
     const handleKeyboard = (event) => {
