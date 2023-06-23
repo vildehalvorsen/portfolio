@@ -1,28 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledBox } from "../styledComponents/Boxes";
-import projects from "../../constants/api";
 
-export default function DisplayBox({ i, project }) {
-  const { id, title, description, color, image } = project;
+export default function DisplayBox({ i, navigation }) {
+  const { color, fullTitle, firstTitle, lastTitle } = navigation;
   const navigate = useNavigate();
 
   const handleClick = () => {
-   navigate(`/projects/${id}`);
-  }
-  
+    navigate(`/${fullTitle}`);
+  };
+
   return (
     <StyledBox
       style={{ "--i": i }}
       color={color}
       onClick={handleClick}
+      title={fullTitle}
     >
-      <div className="box--top">{title}</div>
+      <div className="box--top"></div>
       <div>
-        <span style={{ "--i": 0 }}>{title}</span>
-        <span style={{ "--i": 1 }}>{title}</span>
-        <span style={{ "--i": 2 }}>{title}</span>
-        <span style={{ "--i": 3 }}>{title}</span>
+        <span style={{ "--i": 0 }}>
+          <p className="firstTitle">{firstTitle}</p>
+        </span>
+        <span style={{ "--i": 1 }}>
+          <p className="lastTitle">{lastTitle}</p>
+        </span>
+        <span style={{ "--i": 2 }}>
+          <p className="firstTitle">{firstTitle}</p>
+        </span>
+        <span style={{ "--i": 3 }}>
+          <p className="lastTitle">{lastTitle}</p>
+        </span>
       </div>
       <div className="box--bottom"></div>
     </StyledBox>

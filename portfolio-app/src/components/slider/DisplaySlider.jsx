@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DisplayBox from "../boxes/DisplayBox";
 import { StyledSlider } from "../styledComponents/Slider";
-import projects from "../../constants/api";
-import { StyledBox } from "../styledComponents/Boxes";
+import navigation from "../../constants/navigation";
 
 export default function DisplaySlider() {
   const [rotation, setRotation] = useState(0);
@@ -58,12 +57,12 @@ export default function DisplaySlider() {
   return (
     <>
     <StyledSlider style={{ transform: `rotateY(${rotation}deg)` }}>
-      {projects.map((project, i) => {
+      {navigation.map((page, i) => {
         return (
           <DisplayBox
-            key={project.id}
+            key={page.id}
             i={i}
-            project={project}
+            navigation={page}
           />
         );
       })}
