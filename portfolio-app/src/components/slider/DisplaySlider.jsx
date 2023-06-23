@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import DisplayBox from "../boxes/DisplayBox";
 import { StyledSlider } from "../styledComponents/Slider";
 import projects from "../../constants/api";
+import { StyledBox } from "../styledComponents/Boxes";
 
 export default function DisplaySlider() {
   const [rotation, setRotation] = useState(0);
-  const [totalRotation, setTotalRotation] = useState(0);
   const rotationSpeed = 0.1;
 
   useEffect(() => {
@@ -16,7 +16,6 @@ export default function DisplaySlider() {
 
       animationFrame = requestAnimationFrame(() => {
         const delta = getDeltaFromEvent(event) * rotationSpeed;
-        setTotalRotation((prevTotalRotation) => prevTotalRotation + delta);
         setRotation((prevRotation) => (prevRotation + delta) % 360);
       });
     };
@@ -38,10 +37,8 @@ export default function DisplaySlider() {
       const rightArrowKey = 39;
 
       if (keyCode === leftArrowKey) {
-        setTotalRotation((prevTotalRotation) => prevTotalRotation - 10);
         setRotation((prevRotation) => (prevRotation - 10) % 360);
       } else if (keyCode === rightArrowKey) {
-        setTotalRotation((prevTotalRotation) => prevTotalRotation + 10);
         setRotation((prevRotation) => (prevRotation + 10) % 360);
       }
     };
@@ -59,6 +56,7 @@ export default function DisplaySlider() {
   }, []);
   
   return (
+    <>
     <StyledSlider style={{ transform: `rotateY(${rotation}deg)` }}>
       {projects.map((project, i) => {
         return (
@@ -70,5 +68,6 @@ export default function DisplaySlider() {
         );
       })}
     </StyledSlider>
+    </>
   );
 }

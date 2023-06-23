@@ -4,7 +4,8 @@ const theme = {
   boxThirdColor: "#d1ac8b",
   boxMainColor: "#2e2e2e",
   
-  boxSize: "200px",
+  boxSize: "100px",
+  boxHalfSize: "50px",
   boxAlignDegree: "120deg",
   boxSpaceBetween: "300px",
   

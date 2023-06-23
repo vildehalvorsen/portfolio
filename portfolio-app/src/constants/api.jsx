@@ -5,7 +5,7 @@ const projects = [
   {
     id: 1,
     title: "Project Exam 2 / Social Media App",
-    description: "",
+    description: "The brief for the exam: An existing Social Media company has approached you to create a brand new front end for their application. While they have a list of required features, the design and user experience has not been specified. Working with the official API documentation, plan, design and build a modern front end social media application.",
     color: `${theme.boxFirstColor}`,
     images: [
       {

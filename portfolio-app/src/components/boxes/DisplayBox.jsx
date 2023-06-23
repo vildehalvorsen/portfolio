@@ -16,7 +16,6 @@ export default function DisplayBox({ i, project }) {
       style={{ "--i": i }}
       color={color}
       onClick={handleClick}
-      title={title}
     >
       <div className="box--top">{title}</div>
       <div>
