@@ -9,6 +9,7 @@ export default function DisplaySlider() {
 
   useEffect(() => {
     let animationFrame;
+    let startTouchY = 0;
 
     const handleInteraction = (event) => {
       cancelAnimationFrame(animationFrame);
@@ -30,6 +31,21 @@ export default function DisplaySlider() {
       }
     };
 
+    const handleTouchStart = (event) => {
+      startTouchY = event.touches[0].clientY;
+    };
+
+    const handleTouchMove = (event) => {
+      event.preventDefault();
+      const deltaY = startTouchY - event.touches[0].clientY;
+      const delta = deltaY * rotationSpeed;
+      setRotation((prevRotation) => (prevRotation + delta) % 360);
+    };
+
+    const handleTouchEnd = () => {
+      startTouchY = 0;
+    };
+
     const handleKeyboard = (event) => {
       const { keyCode } = event;
       const leftArrowKey = 37;
@@ -43,30 +59,26 @@ export default function DisplaySlider() {
     };
 
     window.addEventListener("wheel", handleInteraction);
-    window.addEventListener("touchmove", handleInteraction);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
     window.addEventListener("keydown", handleKeyboard);
 
     return () => {
       window.removeEventListener("wheel", handleInteraction);
-      window.removeEventListener("touchmove", handleInteraction);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("keydown", handleKeyboard);
       cancelAnimationFrame(animationFrame);
     };
   }, []);
-  
+
   return (
-    <>
     <StyledSlider style={{ transform: `rotateY(${rotation}deg)` }}>
       {navigation.map((page, i) => {
-        return (
-          <DisplayBox
-            key={page.id}
-            i={i}
-            navigation={page}
-          />
-        );
+        return <DisplayBox key={page.id} i={i} navigation={page} />;
       })}
     </StyledSlider>
-    </>
   );
 }
