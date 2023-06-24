@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledBox } from "../styledComponents/Boxes";
 
@@ -9,8 +9,6 @@ export default function DisplayBox({ i, navigation }) {
   const handleClick = () => {
     navigate(`/${fullTitle}`);
   };
-  
-  
 
   return (
     <StyledBox
