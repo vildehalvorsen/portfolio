@@ -7,14 +7,14 @@ const theme = {
   boxAlignDegree: "120deg",
   
   /* Mobile */
-  mobileBoxSize: "50px",
-  mobileBoxHalfSize: "25px",
-  mobileBoxSpaceBetween: "150px",
+  mobileBoxSize: "70px",
+  mobileBoxHalfSize: "35px",
+  mobileBoxSpaceBetween: "200px",
   
   /* Tablet */
   tabletBoxSize: "80px",
   tabletBoxHalfSize: "40px",
-  tabletBoxSpaceBetween: "200px",
+  tabletBoxSpaceBetween: "250px",
   
   /* Desktop */
   boxSize: "100px",

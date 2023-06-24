@@ -26,7 +26,7 @@ const hoverEffectDesktop = keyframes`
 }
 
 50% {
-  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree})) rotateX(3deg)
+  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree})) rotateX(5deg)
   translateZ(${theme.boxSpaceBetween});
 }
 
@@ -80,11 +80,20 @@ const StyledBox = styled.div`
       font-weight: 400;
       font-style: normal;
       color: #222;
-      font-size: 20px;
+      font-size: 25px;
       width: 100%;
 
       &.firstTitle {
         text-align: right;
+      }
+      
+      &.firstTitle.back {
+        transform: rotateZ(180deg);
+      }
+      
+      &.lastTitle.back {
+        transform: rotateZ(180deg);
+        text-align: left;
       }
     }
   }
@@ -122,7 +131,7 @@ const StyledBox = styled.div`
         translateZ(${theme.tabletBoxHalfSize});
 
       p {
-        font-size: 40px;
+        font-size: 35px;
       }
     }
 
@@ -145,7 +154,7 @@ const StyledBox = styled.div`
     width: ${theme.boxSize};
     height: ${theme.boxSize};
     transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
-      translateZ(${theme.boxSpaceBetween});
+      translateZ(${theme.boxSpaceBetween}) rotateX(-5deg);
 
     &:hover {
       animation-name: ${hoverEffectDesktop};
@@ -158,6 +167,10 @@ const StyledBox = styled.div`
     div span {
       transform: rotateY(calc(90deg * var(--i)))
         translateZ(${theme.boxHalfSize});
+        
+        p {
+          font-size: 40px;
+        }
     }
 
     .box--top {

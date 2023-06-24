@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledBox } from "../styledComponents/Boxes";
 
@@ -9,6 +9,8 @@ export default function DisplayBox({ i, navigation }) {
   const handleClick = () => {
     navigate(`/${fullTitle}`);
   };
+  
+  
 
   return (
     <StyledBox
@@ -26,10 +28,14 @@ export default function DisplayBox({ i, navigation }) {
           <p className="lastTitle">{lastTitle}</p>
         </span>
         <span style={{ "--i": 2 }}>
-          <p className="firstTitle">{firstTitle}</p>
+          <p className={window.innerWidth <= 1000 ? "lastTitle back" : "firstTitle"}>
+          {window.innerWidth <= 1000 ? lastTitle : firstTitle}
+          </p>
         </span>
         <span style={{ "--i": 3 }}>
-          <p className="lastTitle">{lastTitle}</p>
+          <p className={window.innerWidth <= 1000 ? "firstTitle back" : "lastTitle"}>
+          {window.innerWidth <= 1000 ? firstTitle : lastTitle}
+          </p>
         </span>
       </div>
       <div className="box--bottom"></div>
