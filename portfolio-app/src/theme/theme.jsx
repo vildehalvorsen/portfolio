@@ -4,9 +4,21 @@ const theme = {
   boxThirdColor: "#d1ac8b",
   boxMainColor: "#2e2e2e",
   
+  boxAlignDegree: "120deg",
+  
+  /* Mobile */
+  mobileBoxSize: "50px",
+  mobileBoxHalfSize: "25px",
+  mobileBoxSpaceBetween: "150px",
+  
+  /* Tablet */
+  tabletBoxSize: "80px",
+  tabletBoxHalfSize: "40px",
+  tabletBoxSpaceBetween: "200px",
+  
+  /* Desktop */
   boxSize: "100px",
   boxHalfSize: "50px",
-  boxAlignDegree: "120deg",
   boxSpaceBetween: "300px",
   
 }

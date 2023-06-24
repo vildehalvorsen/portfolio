@@ -1,7 +1,24 @@
 import styled, { keyframes } from "styled-components";
 import theme from "../../theme/theme";
 
-const hoverEffect = keyframes`
+const hoverEffectMobile = keyframes`
+0% {
+  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
+  translateZ(${theme.mobileBoxSpaceBetween}) rotateX(0deg);
+}
+
+50% {
+  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
+  translateZ(${theme.mobileBoxSpaceBetween}) rotateX(5deg);
+}
+
+100% {
+  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
+  translateZ(${theme.mobileBoxSpaceBetween}) rotateX(0deg);
+}
+`;
+
+const hoverEffectDesktop = keyframes`
 
 0% {
   transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree})) rotateX(-5deg)
@@ -9,7 +26,7 @@ const hoverEffect = keyframes`
 }
 
 50% {
-  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree})) rotateX(0deg)
+  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree})) rotateX(3deg)
   translateZ(${theme.boxSpaceBetween});
 }
 
@@ -21,16 +38,16 @@ const hoverEffect = keyframes`
 
 const StyledBox = styled.div`
   position: absolute;
-  width: ${theme.boxSize};
-  height: ${theme.boxSize};
+  width: ${theme.mobileBoxSize};
+  height: ${theme.mobileBoxSize};
   transform-style: preserve-3d;
-  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree})) rotateX(-5deg)
-    translateZ(${theme.boxSpaceBetween});
+  transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
+    translateZ(${theme.mobileBoxSpaceBetween});
   transition: transform 0.9s ease;
   cursor: pointer;
 
   &:hover {
-    animation: ${hoverEffect} .8s forwards ease-in-out;
+    animation: ${hoverEffectMobile} 0.8s infinite ease-in-out;
   }
 
   div {
@@ -40,7 +57,7 @@ const StyledBox = styled.div`
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transform: rotateY(-30deg);
+    transform: rotateZ(90deg) rotateY(-40deg) rotateX(-20deg);
   }
 
   div span {
@@ -53,7 +70,8 @@ const StyledBox = styled.div`
       ${theme.boxMainColor},
       ${(props) => props.color}
     );
-    transform: rotateY(calc(90deg * var(--i))) translateZ(${theme.boxHalfSize});
+    transform: rotateY(calc(90deg * var(--i)))
+      translateZ(${theme.mobileBoxHalfSize});
     display: flex;
     align-items: center;
 
@@ -62,9 +80,9 @@ const StyledBox = styled.div`
       font-weight: 400;
       font-style: normal;
       color: #222;
-      font-size: 40px;
+      font-size: 20px;
       width: 100%;
-    
+
       &.firstTitle {
         text-align: right;
       }
@@ -75,20 +93,85 @@ const StyledBox = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: ${theme.boxSize};
-    height: ${theme.boxSize};
+    width: ${theme.mobileBoxSize};
+    height: ${theme.mobileBoxSize};
     background: ${theme.boxMainColor};
-    transform: rotateY(-30deg) rotateX(90deg) translateZ(${theme.boxHalfSize});
+    transform: rotateZ(90deg) rotateY(-40deg) rotateX(-110deg)
+      translateZ(-${theme.mobileBoxHalfSize});
   }
 
   .box--bottom {
     position: absolute;
     top: 0;
     left: 0;
+    width: ${theme.mobileBoxSize};
+    height: ${theme.mobileBoxSize};
+    background: ${(props) => props.color};
+    transform: rotateZ(90deg) rotateY(-40deg) rotateX(-110deg)
+      translateZ(${theme.mobileBoxHalfSize});
+  }
+
+  @media (min-width: 700px) {
+    width: ${theme.tabletBoxSize};
+    height: ${theme.tabletBoxSize};
+    transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
+      translateZ(${theme.tabletBoxSpaceBetween});
+
+    div span {
+      transform: rotateY(calc(90deg * var(--i)))
+        translateZ(${theme.tabletBoxHalfSize});
+
+      p {
+        font-size: 40px;
+      }
+    }
+
+    .box--top {
+      width: ${theme.tabletBoxSize};
+      height: ${theme.tabletBoxSize};
+      transform: rotateZ(90deg) rotateY(-40deg) rotateX(-110deg)
+        translateZ(-${theme.tabletBoxHalfSize});
+    }
+
+    .box--bottom {
+      width: ${theme.tabletBoxSize};
+      height: ${theme.tabletBoxSize};
+      transform: rotateZ(90deg) rotateY(-40deg) rotateX(-110deg)
+        translateZ(${theme.tabletBoxHalfSize});
+    }
+  }
+
+  @media (min-width: 1000px) {
     width: ${theme.boxSize};
     height: ${theme.boxSize};
-    background: ${(props) => props.color};
-    transform: rotateY(-30deg) rotateX(90deg) translateZ(-${theme.boxHalfSize});
+    transform: rotateY(calc(var(--i) * ${theme.boxAlignDegree}))
+      translateZ(${theme.boxSpaceBetween});
+
+    &:hover {
+      animation-name: ${hoverEffectDesktop};
+    }
+
+    div {
+      transform: rotateY(-30deg);
+    }
+
+    div span {
+      transform: rotateY(calc(90deg * var(--i)))
+        translateZ(${theme.boxHalfSize});
+    }
+
+    .box--top {
+      width: ${theme.boxSize};
+      height: ${theme.boxSize};
+      transform: rotateY(-30deg) rotateX(90deg) translateZ(${theme.boxHalfSize});
+    }
+
+    .box--bottom {
+      width: ${theme.boxSize};
+      height: ${theme.boxSize};
+      transform: rotateY(-30deg) rotateX(90deg)
+        translateZ(-${theme.boxHalfSize});
+    }
   }
 `;
 
