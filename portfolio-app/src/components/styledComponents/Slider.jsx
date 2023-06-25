@@ -1,7 +1,7 @@
-import styles from "styled-components";
+import styled from "styled-components";
 import theme from "../../theme/theme";
 
-const StyledSlider = styles.div`
+const StyledSlider = styled.div`
 position: relative;
 width: ${theme.mobileBoxSize};
 height: 0;

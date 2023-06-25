@@ -9,12 +9,12 @@ const theme = {
   /* Mobile */
   mobileBoxSize: "70px",
   mobileBoxHalfSize: "35px",
-  mobileBoxSpaceBetween: "200px",
+  mobileBoxSpaceBetween: "170px",
   
   /* Tablet */
   tabletBoxSize: "80px",
   tabletBoxHalfSize: "40px",
-  tabletBoxSpaceBetween: "250px",
+  tabletBoxSpaceBetween: "200px",
   
   /* Desktop */
   boxSize: "100px",

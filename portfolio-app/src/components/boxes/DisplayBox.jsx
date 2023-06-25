@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledBox } from "../styledComponents/Boxes";
 
-export default function DisplayBox({ i, navigation }) {
-  const { color, fullTitle, firstTitle, lastTitle } = navigation;
+export default function DisplayBox({ i, page }) {
+  const { color, fullTitle, firstTitle, lastTitle } = page;
   const navigate = useNavigate();
 
   const handleClick = () => {

@@ -1,7 +1,7 @@
 import theme from "../theme/theme";
 
 
-const navigation = [
+const pages = [
   {
     id: 1,
     fullTitle: "about",
@@ -25,4 +25,4 @@ const navigation = [
   },
 ];
 
-export default navigation;
+export default pages;

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import DisplayBox from "../boxes/DisplayBox";
 import { StyledSlider } from "../styledComponents/Slider";
-import navigation from "../../constants/navigation";
+import pages from "../../constants/navigation";
 
 export default function DisplaySlider() {
   const [rotation, setRotation] = useState(0);
   const rotationSpeed = 0.1;
   const swipeThreshold = 10; // Minimum swipe distance to consider it as a swipe
-  const swipeMultiplier = 0.2; // Multiplier for swipe scrolling intensity
+  const swipeMultiplier = 0.5; // Multiplier for swipe scrolling intensity
 
   useEffect(() => {
     let animationFrame;
@@ -72,25 +72,29 @@ export default function DisplaySlider() {
       const { keyCode } = event;
       const leftArrowKey = 37;
       const rightArrowKey = 39;
+      const arrowUp = 38;
+      const arrowDown = 40;
 
-      if (keyCode === leftArrowKey) {
+      if (keyCode === leftArrowKey || keyCode === arrowDown) {
         setRotation((prevRotation) => (prevRotation - 10) % 360);
-      } else if (keyCode === rightArrowKey) {
+      } else if (keyCode === rightArrowKey || keyCode ===  arrowUp) {
         setRotation((prevRotation) => (prevRotation + 10) % 360);
       }
     };
+    
+    const scrollArea = document.querySelector(".scroll--area");
 
-    window.addEventListener("wheel", handleInteraction);
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
+    scrollArea.addEventListener("wheel", handleInteraction);
+    scrollArea.addEventListener("touchstart", handleTouchStart);
+    scrollArea.addEventListener("touchmove", handleTouchMove);
+    scrollArea.addEventListener("touchend", handleTouchEnd);
     window.addEventListener("keydown", handleKeyboard);
 
     return () => {
-      window.removeEventListener("wheel", handleInteraction);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
+      scrollArea.removeEventListener("wheel", handleInteraction);
+      scrollArea.removeEventListener("touchstart", handleTouchStart);
+      scrollArea.removeEventListener("touchmove", handleTouchMove);
+      scrollArea.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("keydown", handleKeyboard);
       cancelAnimationFrame(animationFrame);
     };
@@ -98,8 +102,8 @@ export default function DisplaySlider() {
 
   return (
     <StyledSlider style={{ transform: `rotateY(${rotation}deg)` }}>
-      {navigation.map((page, i) => {
-        return <DisplayBox key={page.id} i={i} navigation={page} />;
+      {pages.map((page, i) => {
+        return <DisplayBox key={page.id} i={i} page={page} />;
       })}
     </StyledSlider>
   );
